@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikita Devi | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --gradient-bg: linear-gradient(120deg, #232526 0%, #414345 100%);
+      --primary-bg: #111216;
+      --section-bg: #181a1b;
+      --accent-color: #00e6e6;
+      --accent-color2: #00b3b3;
+      --text-color: #f3f6fd;
+      --subtitle-color: #b0b8c1;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.45);
+      --divider-color: #23272b;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--primary-bg);
+      color: var(--text-color);
+    }
+    header.hero {
+      background: var(--gradient-bg);
+      color: var(--text-color);
+      padding: 3rem 1rem 2.5rem 1rem;
+      text-align: center;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid var(--accent-color);
+      object-fit: cover;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 16px rgba(0,230,230,0.10);
+    }
+    header.hero h1 {
+      margin: 0;
+      font-size: 2.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+    }
+    header.hero p {
+      margin: 0.7rem 0 0 0;
+      font-size: 1.2rem;
+      color: var(--subtitle-color);
+    }
+    nav.hero-links {
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav.hero-links a {
+      color: var(--accent-color);
+      text-decoration: underline;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    nav.hero-links a:hover {
+      color: var(--accent-color2);
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 1rem 1rem;
+    }
+    section {
+      background: var(--section-bg);
+      margin: 2.5rem 0 0 0;
+      padding: 2.5rem 2rem 2rem 2rem;
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+    h2 {
+      color: var(--accent-color);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      text-align: center;
+    }
+    h2::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-color), var(--accent-color2));
+      border-radius: 2px;
+      margin: 0.7rem auto 0 auto;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--divider-color);
+      margin: 2.5rem 0 2rem 0;
+      border: none;
+    }
+    .skills-list, .achieve-list, .edu-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .skills-list li, .achieve-list li, .edu-list li {
+      font-size: 1.08rem;
+      color: var(--subtitle-color);
+      line-height: 1.6;
+      background: #23272b;
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      min-width: 180px;
+      text-align: center;
+    }
+    .skills-list li:nth-child(odd) {
+      background: #00aaff;
+      color: #111216;
+      font-weight: 600;
+    }
+    .skills-list li:nth-child(even) {
+      background: #00e676;
+      color: #111216;
+      font-weight: 600;
+    }
+    /* --- Hover Card Styles --- */
+    .hover-card-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .hover-card {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 110%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: rgba(30,32,36,0.98);
+      color: var(--text-color);
+      padding: 2rem 2rem 1.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.38);
+      min-width: 340px;
+      max-width: 420px;
+      text-align: left;
+      animation: fadeIn 0.25s;
+      border: 1px solid var(--divider-color);
+    }
+    .hover-card img {
+      width: 100%;
+      max-width: 180px;
+      height: 120px;
+      border-radius: 10px;
+      margin-bottom: 0.7rem;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0,230,230,0.13);
+      border: 2px solid var(--accent-color2);
+      transition: transform 0.3s cubic-bezier(.4,1.5,.5,1), box-shadow 0.3s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .projects-grid .hover-card img {
+      max-width: 220px;
+      height: 140px;
+    }
+    @media (max-width: 700px) {
+      .hover-card img {
+        max-width: 98vw;
+        height: 90px;
+      }
+      .projects-grid .hover-card img {
+        max-width: 98vw;
+        height: 100px;
+      }
+    }
+    .hover-card-title {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-bottom: 0.3rem;
+      font-size: 1.08rem;
+    }
+    .hover-card-desc {
+      color: var(--subtitle-color);
+      font-size: 0.98rem;
+      margin-bottom: 0;
+    }
+    .hover-card-container:hover .hover-card {
+      display: block;
+    }
+    /* --- End Hover Card Styles --- */
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2rem;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .cert-list li {
+      font-size: 1.08rem;
+      color: var(--subtitle-color);
+      line-height: 1.6;
+      background: #23272b;
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      min-width: 220px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .cert-list li:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(0,230,230,0.18);
+      z-index: 2;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 2.8rem;
+      margin-top: 1.5rem;
+    }
+    .project-card {
+      background: rgba(30,32,36,0.98);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.18s, box-shadow 0.18s;
+      border: 1px solid var(--divider-color);
+      position: relative;
+      cursor: pointer;
+      overflow: visible;
+    }
+    .project-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(0,230,230,0.18);
+    }
+    .project-card h3 {
+      color: var(--accent-color);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.18rem;
+    }
+    .project-card p {
+      color: var(--subtitle-color);
+      margin: 0 0 0.7rem 0;
+      font-size: 1rem;
+    }
+    .project-card .year {
+      margin-top: auto;
+      color: #888;
+      font-weight: bold;
+      font-size: 0.98rem;
+      align-self: flex-end;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem 1rem;
+      background: linear-gradient(90deg, #181a1b 60%, #232526 100%);
+      color: #b0b8c1;
+      margin-top: 3rem;
+      font-size: 1.08rem;
+      border-top: 2px solid var(--accent-color2);
+      box-shadow: 0 -2px 24px rgba(0,230,230,0.08);
+      position: relative;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .main-navbar {
+      width: 100%;
+      background: var(--section-bg);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      padding: 0.7rem 0 0.7rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-brand {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      letter-spacing: 2px;
+      margin-left: 2.2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-shadow: 0 2px 12px rgba(0,230,230,0.10);
+    }
+    .navbar-links {
+      display: flex;
+      gap: 2.2rem;
+      margin-left: 0;
+      margin-right: 2.5rem;
+      list-style: none;
+      padding: 0;
+    }
+    .navbar-links li {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .navbar-links a:hover, .navbar-links a:focus {
+      background: var(--accent-color);
+      color: var(--primary-bg);
+      outline: none;
+    }
+    @media (max-width: 900px) {
+      .navbar-links {
+        gap: 1.1rem;
+        margin-right: 1.2rem;
+        margin-left: 0;
+      }
+      .navbar-brand {
+        margin-left: 1rem;
+      }
+    }
+    @media (max-width: 700px) {
+      main, section {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        max-width: 98vw;
+      }
+      header.hero {
+        padding: 2rem 0.5rem 1.2rem 0.5rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .navbar-links {
+        gap: 0.5rem;
+        font-size: 0.98rem;
+        margin-right: 0.5rem;
+        margin-left: 0;
+      }
+      .navbar-brand {
+        font-size: 1.1rem;
+        margin-left: 0.5rem;
+      }
+      .spline-hero iframe {
+        height: 180px;
+      }
+    }
+    .spline-hero {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-bg);
+      overflow: hidden;
+    }
+    .spline-bg-container {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .spline-bg-container iframe {
+      width: 100vw;
+      height: 100vh;
+      min-width: 100vw;
+      min-height: 100vh;
+      border: none;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      /* pointer-events: none; */
+      /* filter: blur(0.5px) brightness(0.85); */
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(18, 22, 28, 0.48); /* lighter overlay for more vivid bot */
+      z-index: 2;
+    }
+    .hero-info {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      width: 100vw;
+      height: 100vh;
+      text-align: left;
+      padding: 0 0 5vh 5vw;
+      box-sizing: border-box;
+    }
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+    .hero-tagline {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-color2);
+      margin: 0 0 1.1rem 0;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+    .hero-desc {
+      font-size: 1.13rem;
+      color: var(--subtitle-color);
+      margin: 0 0 0.7rem 0;
+      line-height: 1.6;
+      max-width: 420px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    @media (max-width: 900px) {
+      .spline-hero, .spline-bg-container, .hero-overlay, .hero-info {
+        width: 100vw;
+        height: 60vh;
+        min-height: 340px;
+        max-width: 100vw;
+        max-height: 60vh;
+      }
+      .hero-info {
+        align-items: flex-start;
+        justify-content: flex-end;
+        text-align: left;
+        padding: 0 0 3vh 4vw;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .hero-tagline {
+        font-size: 1.1rem;
+      }
+      .hero-desc {
+        font-size: 1rem;
+        max-width: 90vw;
+      }
+    }
+    .main-content-after-spline {
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    section {
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+      border-radius: 0;
+      padding: 2.5rem 4vw 2rem 4vw;
+      box-sizing: border-box;
+    }
+    @media (max-width: 900px) {
+      main.main-content-after-spline, section {
+        width: 100vw;
+        max-width: 100vw;
+        padding-left: 2vw;
+        padding-right: 2vw;
+      }
+    }
+    .footer-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.2rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.18rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .footer-contacts a, .footer-contacts span {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.18s, transform 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0.3em 0.7em;
+    }
+    .footer-contacts a:hover {
+      color: #fff;
+      background: var(--accent-color2);
+      transform: translateY(-2px) scale(1.07);
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(0,230,230,0.13);
+    }
+    .footer-contacts i {
+      font-size: 1.35em;
+      margin-right: 0.25em;
+      transition: color 0.18s, transform 0.18s;
+    }
+    .footer-contacts a:hover i {
+      color: #fff;
+      transform: scale(1.15);
+    }
+    .about-flex {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      flex-direction: row;
+    }
+    .about-flex .hero-img {
+      margin: 0;
+      max-width: 260px;
+      min-width: 180px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 7px solid var(--accent-color);
+      box-shadow: 0 2px 16px rgba(0,230,230,0.10);
+      display: block;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .about-flex .about-text {
+      flex: 1 1 0;
+      min-width: 220px;
+    }
+    @media (max-width: 700px) {
+      .about-flex {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .about-flex .about-text {
+        text-align: center;
+      }
+      .about-flex .hero-img {
+        margin-bottom: 0.5rem;
+        height: 140px;
+        max-width: 140px;
+        min-width: 100px;
+        align-self: center;
+        border-radius: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-navbar">
+    <span class="navbar-brand">Nikita</span>
+    <ul class="navbar-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+  </nav>
+  <div class="spline-hero">
+    <div class="spline-bg-container">
+      <iframe 
+        src="https://my.spline.design/genkubgreetingrobot-8LaM96dTdOwdCK8qatvDVEsz/" 
+        allowfullscreen
+        style="width: 100vw; height: 100vh; min-width: 100vw; min-height: 100vh; border: none; display: block;">
+      </iframe>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-info">
+      <h1 class="hero-title">Nikita Devi</h1>
+      <h2 class="hero-tagline">Innovative Software Engineer & Tech Enthusiast</h2>
+      <p class="hero-desc">Blending creativity and code to build impactful digital experiences. Passionate about UI/UX, data, and automation. Welcome to my portfolio!</p>
+    </div>
+  </div>
+  <header class="hero">
+  </header>
+  <main class="main-content-after-spline">
+    <section id="about">
+      <div class="about-flex">
+        <img class="hero-img" src="nikita profile.jpg" alt="Nikita Devi" />
+        <div class="about-text">
+          <h2>About Me</h2>
+          <p style="text-align:left; max-width: 700px; margin: 0; color: var(--subtitle-color); font-size: 1.13rem;">
+            I'm <strong>Nikita</strong> — a Computer Science undergrad passionate about both the technical and creative sides of technology.<br>
+            I focus on software engineering, UI/UX, data analysis with <strong>Python</strong>, and dashboard design using <strong>Power BI</strong>. I also enjoy exploring AI concepts and automation.<br>
+            Outside of code, I enjoy design work in <strong>Figma</strong>, brainstorming concepts that blend logic and creativity.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section id="skills">
+      <h2>Technical Skills</h2>
+      <ul class="skills-list">
+        <li>C</li>
+        <li>C++</li>
+        <li>Python</li>
+        <li>Excel</li>
+        <li>Statistics</li>
+        <li>Power BI</li>
+        <li>Figma</li>
+        <li>ML (Learning)</li>
+      </ul>
+    </section>
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <ul class="cert-list">
+        <li class="hover-card-container">
+          Responsive Web Design - FreeCodeCamp
+          <span class="hover-card">
+            <img src="responsive.jpg" alt="Responsive Web Design" />
+            <span class="hover-card-title">Responsive Web Design</span>
+            <span class="hover-card-desc">Certified in building responsive and mobile-friendly websites using HTML and CSS. Built several projects as part of the course.</span>
+          </span>
+        </li>
+        <li class="hover-card-container">
+          Fundamentals of Network and Digital Communication - Coursera
+          <span class="hover-card">
+            <img src="networking.jpg" alt="Networking" />
+            <span class="hover-card-title">Network & Digital Communication</span>
+            <span class="hover-card-desc">Learned digital communication principles, network structure, and protocols. Completed hands-on labs and quizzes.</span>
+          </span>
+        </li>
+        <li class="hover-card-container">
+          The Bits and Bytes of Computer Networking - Coursera
+          <span class="hover-card">
+            <img src="bits.jpg" alt="Computer Networking" />
+            <span class="hover-card-title">Bits and Bytes of Networking</span>
+            <span class="hover-card-desc">Explored networking fundamentals, protocols, and troubleshooting techniques. Built a mini project on network simulation.</span>
+          </span>
+        </li>
+        <li class="hover-card-container">
+          100 Days Python Pro Bootcamp - Udemy
+          <span class="hover-card">
+            <img src="python.jpg" alt="Python Bootcamp" />
+            <span class="hover-card-title">Python Pro Bootcamp</span>
+            <span class="hover-card-desc">Mastered Python through 100 days of hands-on coding challenges and real-world projects. Built apps and automation scripts.</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul class="projects-grid">
+        <li class="project-card hover-card-container">
+          Student Performance Checker Dashboard
+          <span class="hover-card">
+            <img src="studentdash board.jpg" alt="Student Dashboard" />
+            <span class="hover-card-title">Student Performance Checker</span>
+            <span class="hover-card-desc">Interactive dashboard built in Power BI. Visualizes student grades, attendance, and trends with filters and charts. <br><b>Year:</b> 2025</span>
+          </span>
+        </li>
+        <li class="project-card hover-card-container">
+          Car Crash Tracker Dashboard
+          <span class="hover-card">
+            <img src="car crush.jpg" alt="Car Crash Tracker" />
+            <span class="hover-card-title">Car Crash Tracker</span>
+            <span class="hover-card-desc">Analyzed accident data, mapped high-risk zones, and presented insights for road safety improvements. <br><b>Year:</b> 2025</span>
+          </span>
+        </li>
+        <li class="project-card hover-card-container">
+          Air Quality Monitoring for Agriculture Project
+          <span class="hover-card">
+            <img src="air polution.jpg" alt="Air Quality Monitoring" />
+            <span class="hover-card-title">Air Quality Monitoring</span>
+            <span class="hover-card-desc">Python-based data analysis for air quality. Helped optimize crop planning and predict disease risks. <br><b>Year:</b> 2025</span>
+          </span>
+        </li>
+        <li class="project-card hover-card-container">
+          AI-Driven Intraday Trading System
+          <span class="hover-card">
+            <img src="treading.jpg
+            " alt="AI Trading System" />
+            <span class="hover-card-title">AI-Driven Trading System</span>
+            <span class="hover-card-desc">Built an ML model for intraday stock prediction. Included backtesting and performance analytics. <br><b>Year:</b> 2025</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+    <section id="achievements">
+      <h2>Achievements</h2>
+      <ul class="achieve-list">
+        <li>Certificate on Climate Change (Nov '23)</li>
+        <li>Participated in TCS CODEVITA (Nov '23)</li>
+        <li>Hackathons and coding competitions (Jun '23)</li>
+        <li>Olympiad certificate (Jan '23)</li>
+        <li>School Discipline Captain (Mar '22 - Mar '23)</li>
+      </ul>
+    </section>
+    <section id="education">
+      <h2>Education</h2>
+      <ul class="edu-list">
+        <li>B.Tech in Computer Science | Lovely Professional University | Ongoing | Phagwara, IN</li>
+        <li>Higher Secondary | Kendriya Vidyalaya no.1 BEG & Centre | CGPA: 7.26 | Roorkee, IN</li>
+        <li>Secondary Education | Kendriya Vidyalaya no.1 BEG & Centre | CGPA: 9.00 | Roorkee, IN</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-contacts">
+      <a href="mailto:Nikitanath0001@gmail.com" title="Email"><i class="fas fa-envelope"></i> Nikitanath0001@gmail.com</a>
+      <span><i class="fas fa-phone"></i> +91 7302594842</span>
+      <a href="https://www.linkedin.com/in/nikita-n-725512281?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="https://github.com/Nikitadevi" target="_blank" title="GitHub"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+    <div style="margin-top:1rem;">&copy; 2025 Nikita Devi | Portfolio</div>
+  </footer>
+</body>
+</html> 
